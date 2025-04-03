@@ -1,10 +1,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link rel="stylesheet" href="assets/css/shadcn-theme.css"/>
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="flex justify-between flex-col-reverse items-center mb-8">
+    <div class="flex justify-between lg:flex-row flex-col items-center mb-8">
         <h1 class="text-2xl sm:text-3xl font-semibold text-gray-900">Toutes les annonces publiées</h1>
         <a href="<?php echo isset($_SESSION['idParti']) ? 'index.php?section=acc-parti' : 'index.php?section=acc-off'; ?>" 
-           class="inline-flex items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+           class="inline-flex items-center justify-center rounded-md bg-gray-900 px-4 ml-4 py-2 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
             Retour
         </a>
     </div>
