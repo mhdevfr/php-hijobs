@@ -29,7 +29,7 @@
 }
 
 body{
-    background-image: url('./../../public/image/mac.webp');
+    background-image: url('/public/image/mac.webp');
     background-size: cover;
 }
 

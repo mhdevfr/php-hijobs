@@ -7,7 +7,7 @@ $idProfessionelle = $_SESSION['idEntreprise'];
 
 $professionelle = get_profesionnelle($idProfessionelle);
 
-$tailleEntreprise = getTaille($connexion);
+//$tailleEntreprise = getTaille($connexion);
 
 $ActiviteEntreprise = getActivite($connexion);
 

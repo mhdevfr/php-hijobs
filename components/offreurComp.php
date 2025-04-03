@@ -1,18 +1,26 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link rel="stylesheet" href="assets/css/shadcn-theme.css"/>
-<div class="z-0 mr-12 w-full pb-12 h-full mb-12 shadcn-card flex lg:flex-row flex-col-reverse bg-gray-100 justify-center items-center fade-in">
-    
+<div class="z-0 mr-12 w-full pb-12 h-full mb-12 shadcn-card flex flex-col rounded-md lg:flex-col bg-gray-100 justify-center items-start fade-in">
+    <div class="w-full h-full flex  justify-between p-4 items-start">
+        <div class="w-1/2">
+        <h1 class="text-4xl w-full text-bold police-1 mt-6">Postez une annonce</h1>
+        <p class="police-2">Publiez une annonce pour trouver le talent idéal pour votre entreprise.</p>
+        </div>
+       <div class="w-1/2">
+       <h1 class="text-4xl text-bold police-1 mt-6">Information du profil</h1>
+       <p class="police-2">Modifier les informations de votre profil pour trouver le talent idéal pour votre entreprise.</p>
+       </div>
+
+    </div>
+    <div class="flex justify-between items-start w-full    ">
     <div class="lg:w-1/2 w-5/6 h-full flex flex-col justify-start p-4 items-start">
-        
-        <h1 class="text-4xl w-full text-bold police-1 mb-6 mt-6">Postez une annonce</h1>
-        
             <form action="index.php?section=addAnnoncePro" class="w-full" method="post">
                 <div class="w-full flex flex-col lg:items-start items-center justify-center text-center">
-                    <input type="text" name="titreAnnonce" class="shadcn-input lg:w-96 w-full mb-5" placeholder="Titre">
+                    <input type="text" name="titreAnnonce" class="shadcn-input p-1 rounded-lg lg:w-96 w-full mb-5" placeholder="Titre">
                     <input type="text" name="intitEntreprise" class="lg:w-96 w-full mb-5 p-2 h-11 border-2 border-gray-400 rounded-lg outline-none"  
                     value=<?php echo $_SESSION['nomEntreprise'] ?>
                     placeholder="Nom de l'entreprise">
-                    <input type="text" name="localisation" class="shadcn-input lg:w-96 w-full mb-5" placeholder="Localisation">
+                    <input type="text" name="localisation" class="shadcn-input p-1 rounded-lg lg:w-96 w-full mb-5" placeholder="Localisation">
                     <select name="typeContrat" class="shadcn-select lg:w-96 mb-5 w-full">
                     <?php foreach ($typedecontrat as $typeContrat) { ?>
                         <option value="<?php echo $typeContrat['IntituleContrat']; ?>">
@@ -20,20 +28,17 @@
                         </option>
                     <?php } ?>
                 </select>
-                    <textarea name="descriptionAnnonce" class="shadcn-input lg:w-96 w-full mb-5 h-28" placeholder="Description"></textarea>
+                    <textarea name="descriptionAnnonce" class="shadcn-input p-1 rounded-lg lg:w-96 w-full mb-5 h-28" placeholder="Description"></textarea>
                 </div>
 
-                <input type="submit" value="Publier" class="shadcn-button lg:w-96 w-full">
+                    <input type="submit" value="Publier" class="shadcn-button p-1 rounded-lg bg-gray-900 text-white lg:w-96 w-full">
             </form>
-        
-        
     </div>
     
-    <div class="flex lg:w-3/6 bg-gray-100 h-full flex-col rounded-2xl p-6 ">
-    <div class="flex flex-col text-gray-950 shadcn-card py-6 h-full items-center justify-center slide-up" style="background-color: white;">
+    <div class="flex lg:w-1/2 bg-gray-100 h-full flex-col rounded-2xl ">
+    <div class="flex flex-col text-gray-950 shadcn-card py-6 h-full items-start justify-end slide-up">
         <?php
         foreach ($professionelle as $pro) { ?>
-            <h1 class="text-4xl text-bold police-1 mb-6">Information du profil</h1>
             <p placeholder="Nom de l'entreprise" class="police-2">Nom Entreprise : <?php echo $pro['NomEntreprise']; ?></p>
             <p placeholder="Code Postal" class="police-2">Code Postal : <?php echo $pro['CodePostal']; ?></p>
             <p placeholder="Ville" class="police-2">Ville : <?php echo $pro['Ville']; ?></p>
@@ -51,18 +56,18 @@
             </p>
             <p placeholder="Taille de l'entreprise" s class="police-2">Taille de l'entreprise :
                 <?php echo $pro['Taille']; ?></>
-            <div class="mt-6">
+            <div class="w-full mt-6 flex justify-end space-x-4  items-center">
                 <button><a href="index.php?section=formModifProfilPro"
-                        class="shadcn-button my-6">Modifier votre
+                        class="shadcn-button bg-gray-900 p-2 rounded-lg px-3 text-white my-6">Modifier votre
                         profil</a></button>
                 <button><a href="index.php?section=formSupprProfilPro"
-                        class="shadcn-button my-6"
+                        class="shadcn-button p-2 rounded-lg bg-red-500 mr-4 px-3 text-white my-6"
                         onclick="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?')">Supprimer votre
                         profil</a></button>
             </div>
         <?php } ?>
 
-
+</div>
 
 
 

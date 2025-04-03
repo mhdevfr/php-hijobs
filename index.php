@@ -79,7 +79,7 @@ if ($section == 'index') {
             case 'formSupprProfilPro':
                 include_once('controllers/formSupprProfil.php');
                 break;
-            case 'formSupprProfilEtu':
+            case 'form':
                 include_once('controllers/formSupprProfil.php');
                 break;
         case 'postNotif':

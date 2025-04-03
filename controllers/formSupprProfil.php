@@ -2,9 +2,8 @@
 
 include_once('models/modSupprProfil.php');
 
-$idParticulier = $_SESSION['idParti'];
-
-supprProfil($idParticulier);
+$userType = $_SESSION['userType'];
+supprProfil($idParticulier, $userType);
 
 
 

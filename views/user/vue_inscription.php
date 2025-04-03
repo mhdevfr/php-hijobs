@@ -19,10 +19,20 @@
                                 <input type="email" placeholder="monpseudo72@gmail.com" required class="mt-2 my-1 police-2 rounded-lg w-full px-2 py-2 mb-2" name="email" pattern="[a-zA-Z0-9._\-]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,}$">
                                 <input type="password" placeholder="votremotdepasse" required class="mt-2 my-1 police-2 rounded-lg w-full px-2 py-2 mb-2" name="password" pattern="[a-zA-Z0-9à-ÿ!@#$%^&*\-_.]{12,}">
                                 <input type="password" placeholder="confirmezvotremotdepasse" required class="mt-2 my-1 police-2 rounded-lg w-full px-2 py-2 mb-2" name="passconf" pattern="[a-zA-Z0-9à-ÿ!@#$%^&*\-_.]{12,}">
-                                <label class="self-start police-2 my-1">Êtes vous un professionnel ?</label>
-                               <div class="flex justify-start w-full police-2 my-1">
-                               <input type="radio" name="pro" value="1" required class="m-2">Oui
-                                <input type="radio" name="pro" value="0" required class="m-2">Non
+                                <label class="self-start police-2 my-1">Quel est votre profil ?</label>
+                               <div class="flex flex-col justify-start w-full police-2 my-1">
+                                <div class="flex items-center">
+                                    <input type="radio" name="userType" value="pro" id="pro" required class="m-2">
+                                    <label for="pro">Professionnel</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" name="userType" value="etudiant" id="etudiant" required class="m-2">
+                                    <label for="etudiant">Étudiant</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" name="userType" value="particulier" id="particulier" required class="m-2">
+                                    <label for="particulier">Particulier</label>
+                                </div>
                                </div>
                                </div>
                             <p><a href="index.php?section=connecter" class="police-2 text-slate-950">Déjà un compte ?</a></p>
