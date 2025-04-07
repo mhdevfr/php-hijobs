@@ -106,32 +106,51 @@ if (isset($annonceChoisi) && !empty($annonceChoisi)) {
                         Contacter <?php echo htmlspecialchars($wParticulier); ?>
                     </h2>
                     
-                    <form action="index.php?section=messages&action=envoyer" method="post" class="space-y-4 flex-grow flex flex-col">
-                        <input type="hidden" name="type_annonce" value="particulier">
-                        <input type="hidden" name="id_annonce" value="<?php echo htmlspecialchars($annonceChoisi['numAnnonceParti'] ?? ''); ?>">
-                        <input type="hidden" name="destinataire_id" value="<?php echo htmlspecialchars($annonceChoisi['idParti'] ?? ''); ?>">
-                        
-                        <div class="space-y-1 flex-grow">
-                            <label for="message" class="block text-sm font-medium text-gray-700">
-                                Votre message
-                            </label>
-                            <textarea id="message"
-                                    name="message" 
-                                    rows="10"
-                                    required
-                                    placeholder="Rédigez un message pour accompagner votre candidature"
-                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm resize-none flex-grow min-h-[200px]"></textarea>
-                        </div>
+                    <?php if (isset($_SESSION['userType']) && $_SESSION['userType'] === 'etudiant'): ?>
+                        <!-- Formulaire pour les étudiants -->
+                        <form action="index.php?section=envoyerMessageAnnonce" method="post" class="space-y-4 flex-grow flex flex-col">
+                            <input type="hidden" name="numAnnonceParti" value="<?php echo htmlspecialchars($annonceChoisi['numAnnonceParti'] ?? ''); ?>">
+                            
+                            <div class="space-y-1 flex-grow">
+                                <label for="message" class="block text-sm font-medium text-gray-700">
+                                    Votre message
+                                </label>
+                                <textarea id="message"
+                                        name="message" 
+                                        rows="10"
+                                        required
+                                        placeholder="Rédigez un message pour accompagner votre candidature"
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm resize-none flex-grow min-h-[200px]"></textarea>
+                            </div>
 
-
-                        <button type="submit" 
-                                class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors mt-auto">
-                            <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                            <button type="submit" 
+                                    class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors mt-auto">
+                                <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                </svg>
+                                Envoyer ma candidature
+                            </button>
+                        </form>
+                    <?php elseif (isset($_SESSION['userType'])): ?>
+                        <!-- Message pour les utilisateurs non étudiants -->
+                        <div class="flex flex-col items-center justify-center h-full space-y-4 text-center">
+                            <svg class="h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                             </svg>
-                            Envoyer ma candidature
-                        </button>
-                    </form>
+                            <p class="text-gray-700">Seuls les étudiants peuvent postuler aux annonces.</p>
+                        </div>
+                    <?php else: ?>
+                        <!-- Message pour les utilisateurs non connectés -->
+                        <div class="flex flex-col items-center justify-center h-full space-y-4 text-center">
+                            <svg class="h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                            </svg>
+                            <p class="text-gray-700">Connectez-vous en tant qu'étudiant pour postuler.</p>
+                            <a href="index.php?section=connecter" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
+                                Se connecter
+                            </a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -144,43 +163,51 @@ if (isset($annonceChoisi) && !empty($annonceChoisi)) {
                     Contacter <?php echo htmlspecialchars($wParticulier); ?>
                 </h2>
                 
-                <form action="index.php?section=messages&action=envoyer" method="post" class="space-y-4">
-                    <input type="hidden" name="type_annonce" value="particulier">
-                    <input type="hidden" name="id_annonce" value="<?php echo htmlspecialchars($annonceChoisi['numAnnonceParti'] ?? ''); ?>">
-                    <input type="hidden" name="destinataire_id" value="<?php echo htmlspecialchars($annonceChoisi['idParti'] ?? ''); ?>">
-                    
-                    <div class="space-y-1">
-                        <label for="message_mobile" class="block text-sm font-medium text-gray-700">
-                            Votre message
-                        </label>
-                        <textarea id="message_mobile"
-                                name="message" 
-                                rows="8"
-                                required
-                                placeholder="Rédigez un message pour accompagner votre candidature"
-                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm resize-none"></textarea>
-                    </div>
+                <?php if (isset($_SESSION['userType']) && $_SESSION['userType'] === 'etudiant'): ?>
+                    <!-- Formulaire pour les étudiants (mobile) -->
+                    <form action="index.php?section=envoyerMessageAnnonce" method="post" class="space-y-4">
+                        <input type="hidden" name="numAnnonceParti" value="<?php echo htmlspecialchars($annonceChoisi['numAnnonceParti'] ?? ''); ?>">
+                        
+                        <div class="space-y-1">
+                            <label for="message_mobile" class="block text-sm font-medium text-gray-700">
+                                Votre message
+                            </label>
+                            <textarea id="message_mobile"
+                                    name="message" 
+                                    rows="8"
+                                    required
+                                    placeholder="Rédigez un message pour accompagner votre candidature"
+                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm resize-none"></textarea>
+                        </div>
 
-                    <div class="space-y-1">
-                        <label for="cv_mobile" class="block text-sm font-medium text-gray-700">
-                            CV (optionnel)
-                        </label>
-                        <input type="file" 
-                               id="cv_mobile" 
-                               name="cv"
-                               accept=".pdf,.doc,.docx"
-                               class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
-                        <p class="mt-1 text-xs text-gray-500">PDF, DOC ou DOCX. Max 5MB.</p>
-                    </div>
-
-                    <button type="submit" 
-                            class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
-                        <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                        <button type="submit" 
+                                class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
+                            <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                            </svg>
+                            Envoyer ma candidature
+                        </button>
+                    </form>
+                <?php elseif (isset($_SESSION['userType'])): ?>
+                    <!-- Message pour les utilisateurs non étudiants (mobile) -->
+                    <div class="py-8 text-center">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
-                        Envoyer ma candidature
-                    </button>
-                </form>
+                        <p class="mt-4 text-gray-700">Seuls les étudiants peuvent postuler aux annonces.</p>
+                    </div>
+                <?php else: ?>
+                    <!-- Message pour les utilisateurs non connectés (mobile) -->
+                    <div class="py-8 text-center">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                        <p class="mt-4 text-gray-700">Connectez-vous en tant qu'étudiant pour postuler.</p>
+                        <a href="index.php?section=connecter" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
+                            Se connecter
+                        </a>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

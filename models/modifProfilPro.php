@@ -2,29 +2,50 @@
 
 require_once('./models/modModifProfilPro.php');
 
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $idEntreprise = $_POST['idEntreprise'] ?? null;
-    $NomEntreprise = $_POST['nomEntreprise'];
-    $CodePostalPro = $_POST['codePostal'];
-    $Ville = $_POST['ville'];
-    $AdresseEntreprise = $_POST['AdresseEntreprise'];
-    $Pays = $_POST['pays'];
-    $TelephoneEntreprise = $_POST['telephoneEntreprise'];
-    $siteweb = $_POST['siteWeb'];
-    $EmailEntreprise = $_POST['emailEntreprise'];
-    $NumeroSiret = $_POST['NumeroSiret'];
-    $SecteurActivite = $_POST['secteurActivite'];
+    try {
+        // Log des données reçues
+        error_log("Données POST reçues: " . print_r($_POST, true));
+        
+        // Vérification de la session
+        if (!isset($_SESSION['idEntreprise'])) {
+            throw new Exception("Session expirée ou non connecté");
+        }
 
-    $result = modifProfilPro($idEntreprise, $NomEntreprise, $CodePostalPro, $Ville, $AdresseEntreprise, $Pays, $TelephoneEntreprise, $siteweb, $EmailEntreprise, $NumeroSiret, $SecteurActivite);
+        // Vérification des champs requis
+        $required_fields = ['idEntreprise', 'nomEntreprise', 'codePostal', 'ville', 'AdresseEntreprise', 
+                          'pays', 'telephoneEntreprise', 'emailEntreprise', 'NumeroSiret', 'secteurActivite'];
+        
+        foreach ($required_fields as $field) {
+            if (!isset($_POST[$field]) || empty($_POST[$field])) {
+                throw new Exception("Le champ $field est requis");
+            }
+        }
 
-    if ($result) {
+        $result = modifProfilPro(
+            $_POST['idEntreprise'],
+            $_POST['nomEntreprise'],
+            $_POST['codePostal'],
+            $_POST['ville'],
+            $_POST['AdresseEntreprise'],
+            $_POST['pays'],
+            $_POST['telephoneEntreprise'],
+            $_POST['siteWeb'] ?? '',  // Optionnel
+            $_POST['emailEntreprise'],
+            $_POST['NumeroSiret'],
+            $_POST['secteurActivite']
+        );
+
         $_SESSION['success'] = "Profil mis à jour avec succès";
         header('Location: index.php?section=acc-off');
         exit;
-    } else {
-        $_SESSION['error'] = "Une erreur est survenue lors de la mise à jour du profil.";
-        header('Location: index.php?section=modifProfilPro');
+
+    } catch (Exception $e) {
+        error_log("Erreur lors de la modification du profil: " . $e->getMessage());
+        $_SESSION['error'] = "Erreur: " . $e->getMessage();
+        header('Location: index.php?section=formModifProfilPro');
         exit;
     }
 }

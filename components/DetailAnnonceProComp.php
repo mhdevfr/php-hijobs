@@ -117,10 +117,8 @@ if (isset($annonceChoisi) && !empty($annonceChoisi)) {
                         Contacter <?php echo htmlspecialchars($wEntreprise); ?>
                     </h2>
                     
-                    <form action="index.php?section=messages&action=envoyer" method="post" class="space-y-4 flex-grow flex flex-col">
-                        <input type="hidden" name="type_annonce" value="professionnel">
-                        <input type="hidden" name="id_annonce" value="<?php echo htmlspecialchars($annonceChoisi['numAnnoncePro'] ?? ''); ?>">
-                        <input type="hidden" name="destinataire_id" value="<?php echo htmlspecialchars($annonceChoisi['idEntreprise'] ?? ''); ?>">
+                    <form action="index.php?section=envoyerMessageAnnonce" method="post" class="space-y-4 flex-grow flex flex-col">
+                        <input type="hidden" name="numAnnoncePro" value="<?php echo htmlspecialchars($annonceChoisi['numAnnoncePro'] ?? ''); ?>">
                         
                         <?php if (!isset($_SESSION['userType']) || $_SESSION['userType'] !== 'etudiant'): ?>
                             <div class="space-y-1">
@@ -201,10 +199,8 @@ if (isset($annonceChoisi) && !empty($annonceChoisi)) {
                     Contacter <?php echo htmlspecialchars($wEntreprise); ?>
                 </h2>
                 
-                <form action="index.php?section=messages&action=envoyer" method="post" class="space-y-4">
-                    <input type="hidden" name="type_annonce" value="professionnel">
-                    <input type="hidden" name="id_annonce" value="<?php echo htmlspecialchars($annonceChoisi['numAnnoncePro'] ?? ''); ?>">
-                    <input type="hidden" name="destinataire_id" value="<?php echo htmlspecialchars($annonceChoisi['idEntreprise'] ?? ''); ?>">
+                <form action="index.php?section=envoyerMessageAnnonce" method="post" class="space-y-4">
+                    <input type="hidden" name="numAnnoncePro" value="<?php echo htmlspecialchars($annonceChoisi['numAnnoncePro'] ?? ''); ?>">
                     
                     <?php if (!isset($_SESSION['userType']) || $_SESSION['userType'] !== 'etudiant'): ?>
                         <div class="space-y-1">
@@ -252,7 +248,6 @@ if (isset($annonceChoisi) && !empty($annonceChoisi)) {
                                 placeholder="Rédigez un message pour accompagner votre candidature"
                                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm resize-none"></textarea>
                     </div>
-
 
                     <button type="submit" 
                             class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">

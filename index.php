@@ -65,7 +65,7 @@ if ($section == 'index') {
                 include_once('controllers/modifProfil.php');
                 break;
             case 'modifProfilPro':
-                include_once('controllers/modifProfilPro.php');
+                include_once('models/modifProfilPro.php');
                 break;
             case 'modifProfilEtu':
                 include_once('controllers/modifProfilEtu.php');
@@ -149,20 +149,29 @@ if ($section == 'index') {
             include_once('controllers/RegisterPartiForm.php');
             break;
         case 'messages':
+            require_once 'controllers/messagesController.php';
+            
             if (isset($_GET['action'])) {
                 switch($_GET['action']) {
                     case 'marquerLu':
-                        marquerCommeLu();
+                        marquerMessageLu();
                         break;
                     case 'repondre':
-                        repondre();
+                        repondreMessage();
+                        break;
+                    case 'envoyer':
+                        envoyerMessageAnnonce();
                         break;
                     default:
-                        require_once 'views/user/vue_message.php';
+                        include_once('views/user/vue_message.php');
                 }
             } else {
-                require_once 'views/user/vue_message.php';
+                include_once('views/user/vue_message.php');
             }
+            break;
+        case 'envoyerMessageAnnonce':
+            require_once 'controllers/messagesController.php';
+            envoyerMessageAnnonce();
             break;
         default:
             echo "Erreur : le contrôleur demandé est introuvable.";

@@ -91,7 +91,7 @@
                                                 <span class="bg-gray-100 p-2 rounded-l-lg border border-r-0 border-gray-200">
                                                     <i class="fas fa-phone text-gray-400"></i>
                                                 </span>
-                                                <input type="text" value="<?php echo $pro['TelephoneEntreprise'] ?>" name="telephoneEntreprise" required
+                                                <input type="number" value="<?php echo $pro['TelephoneEntreprise'] ?>" name="telephoneEntreprise" required
                                                        class="flex-1 px-3 py-2 rounded-r-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">
                                             </div>
                                             <div class="flex items-center">
@@ -116,7 +116,7 @@
                                             <i class="fas fa-briefcase text-gray-400"></i>
                                             Informations légales
                                         </label>
-                                        <input type="text" value="<?php echo $pro['NumeroSiret'] ?>" name="NumeroSiret" placeholder="Numéro SIRET" required
+                                        <input type="number" value="<?php echo $pro['NumeroSiret'] ?>" name="NumeroSiret" placeholder="Numéro SIRET" required
                                                class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">
                                     </div>
                                 </div>
@@ -137,14 +137,13 @@
                                     </select>
                                 </div>
 
-                                <!-- <div class="space-y-2">
+                                <div class="space-y-2">
                                     <label class="text-sm font-medium text-gray-700 flex items-center gap-2">
                                         <i class="fas fa-users text-gray-400"></i>
                                         Taille de l'entreprise
                                     </label>
-                                   <input type="number" value="<?php echo $pro['TailleEntreprise'] ?>" name="TailleEntreprise" placeholder="Taille de l'entreprise" required
-                                           class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">
-                                </div> -->
+                                    <input type="text" value="<?php echo $pro['Taille'] ?>" name="Taille" required>
+                                </div>
                             </div>
                         <?php } ?>
 
