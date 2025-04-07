@@ -192,14 +192,13 @@
                 <p class="profile-info">Tu00e9lu00e9phone profesionelle : <?php echo $pro['TelephoneEntreprise']; ?></p>
                 <p class="profile-info">Site Web : <?php echo $pro['SiteWeb']; ?></p>
                 <p class="profile-info">Email profesionelle : <?php echo $pro['EmailEntreprise']; ?></p>
-                <p class="profile-info">Numu00e9ro Siret : <?php echo $pro['NumeroSiret']; ?></p>
-                <p class="profile-info">Secteur d'activitu00e9 : <?php echo $pro['SecteurActivite']; ?></p>
-                <p class="profile-info">Taille de l'entreprise : <?php echo $pro['Taille']; ?></p>
+                <p class="profile-info">Numéro Siret : <?php echo $pro['NumeroSiret']; ?></p>
+                <p class="profile-info">Secteur d'activité : <?php echo $pro['SecteurActivite']; ?></p>
                 
                 <div class="profile-actions">
                     <a href="index.php?section=formModifProfilPro" class="modern-button">Modifier votre profil</a>
                     <a href="index.php?section=formSupprProfilPro" class="modern-button"
-                       onclick="return confirm('u00cates-vous su00fbr de vouloir supprimer votre compte ?')">Supprimer votre profil</a>
+                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?')">Supprimer votre profil</a>
                 </div>
             <?php } ?>
         </div>

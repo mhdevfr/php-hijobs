@@ -16,8 +16,9 @@
                             </label>
                             <input type="text" 
                                    id="titreAnnonce"
+                                   required
                                    name="titreAnnonce" 
-                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
+                                   class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
                                    placeholder="Titre" 
                                    required>
                         </div>
@@ -29,7 +30,7 @@
                             <input type="text" 
                                    id="localisation"
                                    name="localisation" 
-                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
+                                   class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
                                    placeholder="Localisation" 
                                    required>
                         </div>
@@ -42,7 +43,7 @@
                                 <input type="text" 
                                        id="NomParti"
                                        name="NomParti" 
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
+                                       class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
                                        value="<?php echo $_SESSION['nomUser']; ?>" 
                                        required>
                             </div>
@@ -54,7 +55,7 @@
                                 <input type="text" 
                                        id="PrenomParti"
                                        name="PrenomParti" 
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
+                                       class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
                                        value="<?php echo $_SESSION['prenomUser']; ?>" 
                                        required>
                             </div>
@@ -67,7 +68,8 @@
                             <textarea id="descriptionAnnonce"
                                     name="descriptionAnnonce" 
                                     rows="4"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm resize-none"
+                                    required
+                                    class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm resize-none"
                                     placeholder="Description détaillée de votre annonce"
                                     required></textarea>
                         </div>

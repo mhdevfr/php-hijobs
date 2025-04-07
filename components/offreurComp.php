@@ -54,7 +54,6 @@
             <p placeholder="Numéro de Siret" class="police-2">Numéro Siret : <?php echo $pro['NumeroSiret']; ?></p>
             <p placeholder="Secteur d'activité" class="police-2">Secteur d'activité : <?php echo $pro['SecteurActivite']; ?>
             </p>
-            <p placeholder="Taille de l'entreprise" s class="police-2">Taille de l'entreprise :
                 <?php echo $pro['Taille']; ?></>
             <div class="w-full mt-6 flex justify-end space-x-4  items-center">
                 <button><a href="index.php?section=formModifProfilPro"

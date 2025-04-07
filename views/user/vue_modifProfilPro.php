@@ -134,14 +134,6 @@
                                         <?php } ?>
                                     </select>
                                 </div>
-
-                                <div class="space-y-2">
-                                    <label class="text-sm font-medium text-gray-700 flex items-center gap-2">
-                                        <i class="fas fa-users text-gray-400"></i>
-                                        Taille de l'entreprise
-                                    </label>
-                                    <input type="text" value="<?php echo $pro['Taille'] ?>" name="Taille" required>
-                                </div>
                             </div>
                         <?php } ?>
 

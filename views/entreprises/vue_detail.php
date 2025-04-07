@@ -16,7 +16,6 @@
         
         <h2 class="text-2xl font-bold">Informations :</h2>
         <p><strong>Secteur d'activité :</strong> <?php echo htmlspecialchars($entrepriseChoisie['secteurActivite'] ?? 'Non spécifié'); ?></p>
-        <p><strong>Taille :</strong> <?php echo htmlspecialchars($entrepriseChoisie['taille'] ?? 'Non spécifié'); ?></p>
 
         <hr class="w-full border-2 border-gray-400 my-4">
         
