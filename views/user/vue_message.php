@@ -21,6 +21,9 @@ $messages = afficherMessages();
     <title>Messages</title>
 </head>
 <body>
+    <div class="w-full items-center justify-center flex">
+        <?php include './components/navbar.php'; ?>
+    </div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-10">
         <div class="mb-8">
             <h1 class="text-3xl font-semibold text-gray-900">Messages</h1>

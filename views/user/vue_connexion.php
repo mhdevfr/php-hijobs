@@ -6,7 +6,7 @@
     <title>Connexion - HIJOBS</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="h-screen w-full flex flex-col bg-slate-100 justify-center items-center">
+<body class="h-screen w-full flex flex-col bg-gray-50 justify-center items-center">
 <?php include "./components/navbar.php" ?>
 
 <div class="h-full w-screen bg-gray-50 text-white z-0 flex items-center flex-col justify-center">
