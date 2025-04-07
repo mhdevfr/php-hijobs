@@ -110,7 +110,6 @@ if (isset($_GET['debug']) && $_GET['debug'] === '1') {
             </div>
         <?php endif; ?>
 
-        <!-- Onglets de navigation -->
         <div class="border-b border-gray-200 mb-6">
             <nav class="-mb-px flex" aria-label="Tabs">
                 <a href="index.php?section=messages&type=received" 
@@ -135,13 +134,11 @@ if (isset($_GET['debug']) && $_GET['debug'] === '1') {
                 ?>
                     <div class="bg-white rounded-lg border <?php echo $isUnread && $type === 'received' ? 'border-gray-300' : 'border-gray-200'; ?> shadow-sm overflow-hidden transition-all hover:shadow-md">
                         <div class="p-6">
-                            <!-- En-tête du message -->
                             <div class="flex justify-between items-start mb-4">
                                 <div>
                                     <div class="flex items-center space-x-2">
                                         <h3 class="text-lg font-medium text-gray-900">
                                             <?php 
-                                            // Afficher le destinataire si c'est un message envoyé
                                             if ($type === 'sent') {
                                                 if (!empty($message['idEtudiant']) && $_SESSION['userType'] !== 'etudiant') {
                                                     echo "À: " . htmlspecialchars($message['nom_etudiant'] . ' ' . $message['prenom_etudiant']);
@@ -192,12 +189,10 @@ if (isset($_GET['debug']) && $_GET['debug'] === '1') {
                                 <?php endif; ?>
                             </div>
 
-                            <!-- Contenu du message -->
                             <div class="prose max-w-none text-gray-700 mb-6 mt-4 bg-gray-50 p-4 rounded-md">
                                 <?php echo nl2br(htmlspecialchars($message['contenuMessage'])); ?>
                             </div>
 
-                            <!-- Actions sur le message -->
                             <div class="flex items-center justify-between border-t border-gray-100 pt-4">
                                 <div class="flex space-x-2">
                                     <?php if ($type === 'received'): ?>
@@ -225,14 +220,12 @@ if (isset($_GET['debug']) && $_GET['debug'] === '1') {
                                 <?php endif; ?>
                             </div>
 
-                            <!-- Formulaire de réponse (caché par défaut) -->
                             <?php if ($type === 'received'): ?>
                             <div id="reply-<?php echo $message['idMessage']; ?>" class="hidden mt-4 border-t border-gray-100 pt-4">
                                 <h4 class="text-sm font-medium text-gray-700 mb-2">Votre réponse</h4>
                                 <form action="index.php?section=messages&action=repondre" method="post" class="space-y-4">
                                     <input type="hidden" name="message_original_id" value="<?php echo $message['idMessage']; ?>">
                                     
-                                    <!-- Champs cachés pour identifier le destinataire -->
                                     <input type="hidden" name="destinataire_type" value="<?php 
                                         if (!empty($message['idEtudiant'])) echo 'etudiant';
                                         elseif (!empty($message['idEntreprise'])) echo 'pro';
@@ -242,7 +235,6 @@ if (isset($_GET['debug']) && $_GET['debug'] === '1') {
                                         echo $message['idEtudiant'] ?? $message['idEntreprise'] ?? $message['idParti']; 
                                     ?>">
                                     
-                                    <!-- Si le message est lié à une annonce, on conserve cette info -->
                                     <?php if (!empty($message['numAnnonceParti'])): ?>
                                         <input type="hidden" name="numAnnonceParti" value="<?php echo $message['numAnnonceParti']; ?>">
                                     <?php endif; ?>
@@ -278,7 +270,6 @@ if (isset($_GET['debug']) && $_GET['debug'] === '1') {
                 <?php endforeach; ?>
                 
             <?php else: ?>
-                <!-- Message affiché quand il n'y a pas de messages -->
                 <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
                     <div class="text-center py-16">
                         <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -303,7 +294,6 @@ if (isset($_GET['debug']) && $_GET['debug'] === '1') {
         </div>
     </div>
     
-    <!-- Javascript pour gérer l'affichage/masquage du formulaire de réponse -->
     <script>
     function toggleReplyForm(formId) {
         const form = document.getElementById(formId);

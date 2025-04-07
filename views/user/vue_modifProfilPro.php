@@ -121,8 +121,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Sélecteurs -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                                 <div class="space-y-2">
                                     <label class="text-sm font-medium text-gray-700 flex items-center gap-2">
