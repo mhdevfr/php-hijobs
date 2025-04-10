@@ -9,10 +9,10 @@
 </head>
 
 <body class="bg-white">
-    <div class="min-h-screen w-full">
+    <div class="min-h-screen flex items-center  flex-col w-full">
         <?php include "./components/navbar.php" ?>
         
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 py-8">
             <div class="flex justify-between items-center mb-8">
                 <h1 class="text-2xl sm:text-3xl font-semibold text-gray-900">Modifier votre profil</h1>
                 <a href="index.php?section=acc-parti" 
@@ -92,7 +92,7 @@
 
                             <div class="space-y-1">
                                 <label class="text-sm font-medium text-gray-700">Site Web</label>
-                                <input required 
+                                <input  
                                     type="text" 
                                     value="<?php echo $parti['SiteWeb'] ?>" 
                                     name="siteWeb" 

@@ -14,7 +14,7 @@
         <?php include './components/heroTexte.php'; ?>
         <div class="h-full w-full flex items-center justify-center">
         <?php include './components/heroComponent.php'; ?>
-        <?php include './components/selectAfficherContrats.php '; ?> 
+ <?php  // include './components/selectAfficherContrats.php '; ?>  
         </div>
         <?php include './components/pricingCards.php'; ?>
         <?php include './components/heroComponent2.php'; ?>

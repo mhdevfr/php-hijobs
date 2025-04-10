@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mailEntreprise = $_POST['mailEntreprise'];
     $numeroSiret = $_POST['siret'];
     $secteurActivite = $_POST['secteurActivite'];
-    $tailleEntreprise = $_POST['tailleEntreprise'];
+   // $tailleEntreprise = $_POST['tailleEntreprise'];
 
     $requeteSql = "INSERT INTO professionelle (NomEntreprise, CodePostal, Ville, AdresseEntreprise, Pays, TelephoneEntreprise, SiteWeb, EmailEntreprise, NumeroSiret, SecteurActivite, Taille, password) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
     $etat = $connexion->prepare($requeteSql);
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Les mots de passes ne sont pas identiques veuillez recommencer";
     } else {
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        if($etat->execute([$nomEntreprise, $codePostalEntreprise, $villeEntreprise, $adresseEntreprise, $paysEntreprise, $telephoneEntreprise, $siteWebEntreprise, $mailEntreprise, $numeroSiret, $secteurActivite, $tailleEntreprise, $hash])){
+        if($etat->execute([$nomEntreprise, $codePostalEntreprise, $villeEntreprise, $adresseEntreprise, $paysEntreprise, $telephoneEntreprise, $siteWebEntreprise, $mailEntreprise, $numeroSiret, $secteurActivite, $hash])){
             echo "Vous êtes bien enregistré";
             header('Location: index.php');
         } else {

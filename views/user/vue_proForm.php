@@ -56,13 +56,13 @@
                     <?php } ?>
                 </select>
 
-                <select name="tailleEntreprise" id="tailleEntreprise" class="w-4/5 p-2 m-2 rounded-lg">
+                <!-- <select name="tailleEntreprise" id="tailleEntreprise" class="w-4/5 p-2 m-2 rounded-lg">
                     <?php
                     foreach ($tailleEntreprise as $taille) { ?>
                         <option value="<?php echo $taille['IntituleTaille']; ?>"><?php echo $taille['IntituleTaille']; ?>
                         </option>
                     <?php } ?>
-                </select>
+                </select> -->
             </div>
         </div>
         <div class="flex flex-col items-center">
