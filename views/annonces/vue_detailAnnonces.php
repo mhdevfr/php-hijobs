@@ -7,14 +7,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
+    <!-- Conteneur principal -->
     <div class="w-full h-full flex justify-center items-center flex-col" >
         <?php include "./components/navbar.php" ?>
+        <!-- Conteneur du détail de l'annonce -->
         <div class="w-5/6 mt-12 h-full flex justify-start items-center">
             <?php include "./components/DetailAnnonceComp.php" ?>
         </div>
         <?php include "./components/footer.php" ?>
-        
-        
     </div>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');

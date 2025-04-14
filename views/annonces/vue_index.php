@@ -9,11 +9,12 @@
 <body class="bg-white">
     <div class="h-full w-full flex items-center flex-col">
         <?php include "./components/navbar.php" ?>
-        
+        <!-- Conteneur principal -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="lg:grid lg:grid-cols-4 mt-24 lg:gap-8">
                 <div class="col-span-1">
                     <div class="sticky top-8 bg-white rounded-lg border border-gray-200 p-6 space-y-4">
+                        <!-- Filtre de recherche d'annonce -->
                         <form id="filterForm" class="space-y-4">
                             <div class="space-y-2">
                                 <label for="searchInput" class="text-sm font-medium text-gray-700">Rechercher une annonce</label>
@@ -27,7 +28,8 @@
                                     </svg>
                                 </div>
                             </div>
-
+                            
+                            <!-- Valider le filtre -->
                             <button type="button" 
                                     id="submitButton" 
                                     class="w-full inline-flex items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
@@ -37,6 +39,7 @@
                     </div>
                 </div>
 
+                <!-- Conteneur des annonces -->
                 <div class="lg:col-span-3 space-y-6" id="annoncesContainer">
                     <?php if (!empty($annonces)): ?>
                         <?php foreach ($annonces as $annonce):
@@ -49,11 +52,13 @@
                                    class="block p-6">
                                     <div class="space-y-4">
                                         <div>
+                                            <!-- Affichage du titre de l'annonce -->
                                             <h2 class="text-xl font-semibold text-gray-900">
                                                 <?php echo $isProAnnonce ? 
                                                     htmlspecialchars($annonce['titreAnnoncePro'] ?? '') : 
                                                     htmlspecialchars($annonce['titreAnnonce'] ?? ''); ?>
                                             </h2>
+                                            <!-- Affichage de l'entreprise ou du particulier -->
                                             <p class="text-sm text-gray-600 mt-1">
                                                 <?php echo $isProAnnonce ? 
                                                     htmlspecialchars($annonce['nomEntreprise'] ?? 'Entreprise non spécifiée') : 
@@ -69,12 +74,14 @@
                                                       d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                                             </svg>
                                             <span>
+                                                <!-- Affichage de la ville de l'annonce -->
                                                 <?php echo $isProAnnonce ? 
                                                     htmlspecialchars($annonce['villeAnnoncePro'] ?? '') : 
                                                     htmlspecialchars($annonce['villeAnnonceParti'] ?? ''); ?>
                                             </span>
                                         </div>
-
+                                        
+                                        <!-- Affichage du type de contrat si c'est une annonce professionnelle -->
                                         <?php if ($isProAnnonce && isset($annonce['typeContrat'])): ?>
                                             <div class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-800">
                                                 <?php echo htmlspecialchars($annonce['typeContrat']); ?>
@@ -83,6 +90,7 @@
 
                                         <div class="text-sm text-gray-700">
                                             <?php 
+                                                // Affichage de la description de l'annonce
                                                 $description = $isProAnnonce ? 
                                                     htmlspecialchars($annonce['descAnnoncePro'] ?? '') : 
                                                     htmlspecialchars($annonce['descriptionParti'] ?? '');
@@ -91,6 +99,7 @@
                                         </div>
 
                                         <div class="flex justify-between items-center pt-4 text-sm text-gray-500 border-t border-gray-200">
+                                            <!-- Affichage de la date de création de l'annonce -->
                                             <span>Créé le <?php echo htmlspecialchars($annonce['created_at'] ?? ''); ?></span>
                                             <span>
                                                 Publié par <?php echo htmlspecialchars($annonce['nomEntreprise'] ?? $annonce['nom_complet'] ?? ''); ?>
@@ -113,6 +122,7 @@
     </div>
 
     <script>
+        // Script pour le filtre de recherche d'annonce
         const searchInput = document.getElementById('searchInput');
         const submitButton = document.getElementById('submitButton');
         const annonces = document.querySelectorAll('.annonce-card');

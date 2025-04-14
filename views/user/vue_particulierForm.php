@@ -64,14 +64,14 @@
     </form>
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form');
         const submitButton = document.getElementById('submitButton');
 
-        form.addEventListener('submit', function (e) {
+        form.addEventListener('submit', function(e) {
             submitButton.disabled = true;
             submitButton.value = 'Inscription en cours...';
-            setTimeout(function () {
+            setTimeout(function() {
                 submitButton.disabled = false;
                 submitButton.value = 'Postuler';
             }, 5000);

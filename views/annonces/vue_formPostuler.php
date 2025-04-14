@@ -7,8 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
+    <!-- Conteneur principal -->
     <div class="w-full h-full flex justify-center items-center flex-col" >
         <?php include "./components/navbar.php" ?>
+        <!-- Conteneur du formulaire de postulation -->
         <div class="w-full mt-12 h-full flex justify-center items-center">
             <?php include "./components/formPostulerComp.php" ?>
         </div>
