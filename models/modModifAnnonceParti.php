@@ -1,4 +1,5 @@
 <?php
+// Permet de modifier une annonce d'un particulier
 function modifAnnonce() {
     global $connexion;
 

@@ -1,5 +1,5 @@
 <?php
-
+// Modèle pour gérer les annonces
 function getAnnonces() {
     global $connexion;
     

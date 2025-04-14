@@ -1,5 +1,5 @@
 <?php
-
+// Permet de récupérer les informations d'un particulier
 function get_particulier($idParticulier)
 {
     global $connexion;
@@ -15,6 +15,7 @@ function get_particulier($idParticulier)
     return [];
 }
 
+// Permet de récupérer l'id d'un particulier selon son nom et prénom
 function get_particulier2($nomParticulier, $prenomParticulier)
 {
     global $connexion;

@@ -1,5 +1,5 @@
 <?php
-
+// Permet de supprimer une annonce d'un professionnel ou d'un particulier
 function deleteAnnonce($connexion, $numAnnonce)
 {
     $proId = $_SESSION['idEntreprise'] ?? null;

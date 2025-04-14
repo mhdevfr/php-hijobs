@@ -1,5 +1,5 @@
 <?php
-
+// Modèle pour obtenir les activités des particuliers
 function getActiviteParti($connexion) {
 
     $sql = "SELECT * FROM activiteparticulier";

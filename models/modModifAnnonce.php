@@ -1,6 +1,9 @@
 <?php
-function modifAnnonce($connexion, $titreAnnonce, $villeAnnonce, $description, $typeContrat, $numAnnoncePro, $numAnnonceParti) {
-    
+// Modèle pour modifier une annonce
+// Modifie une annonce selon une entreprise ou un particulier
+function modifAnnonce($connexion, $titreAnnonce, $villeAnnonce, $description, $typeContrat, $numAnnoncePro, $numAnnonceParti)
+{
+
     $proId = $_SESSION['idEntreprise'] ?? null;
     $partiId = $_SESSION['idParti'] ?? null;
 
@@ -9,7 +12,7 @@ function modifAnnonce($connexion, $titreAnnonce, $villeAnnonce, $description, $t
     }
 
     try {
-        if($proId) {
+        if ($proId) {
             $sql = "UPDATE annoncepro SET
             titreAnnoncePro = :titreAnnoncePro,
             descAnnoncePro = :descriptionPro,
@@ -22,8 +25,7 @@ function modifAnnonce($connexion, $titreAnnonce, $villeAnnonce, $description, $t
             $stmt->bindParam(':villeAnnoncePro', $villeAnnonce, PDO::PARAM_STR);
             $stmt->bindParam(':typeContrat', $typeContrat, PDO::PARAM_STR);
             $stmt->bindParam(':numAnnoncePro', $numAnnoncePro, PDO::PARAM_INT);
-            
-        }else  {
+        } else {
             $sql = "UPDATE annonceparticulier SET
             titreAnnonce = :titreAnnonceParti,
             villeAnnonceParti = :villeAnnonceParti,
@@ -31,18 +33,12 @@ function modifAnnonce($connexion, $titreAnnonce, $villeAnnonce, $description, $t
             WHERE idParti = :idParti";
             $stmt = $connexion->prepare($sql);
             $stmt->bindParam(':titreAnnonceParti', $titreAnnonce, PDO::PARAM_STR);
-            $stmt->bindParam(':villeAnnonceParti', $villeAnnonce, PDO::PARAM_STR);            
+            $stmt->bindParam(':villeAnnonceParti', $villeAnnonce, PDO::PARAM_STR);
             $stmt->bindParam(':descriptionParti', $description, PDO::PARAM_STR);
             $stmt->bindParam(':numAnnonceParti', $numAnnonceParti, PDO::PARAM_INT);
         }
-
         return $stmt->execute();
-
-
-
-
-
-    } catch(PDOException $e) {
-
+        
+    } catch (PDOException $e) {
     }
 }

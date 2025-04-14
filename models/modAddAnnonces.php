@@ -1,5 +1,5 @@
 <?php
-
+// Modèle pour ajouter une annonce de professionnel
 function add_annonce_parti($titreAnnonce, $localisation, $idParti, $descriptionAnnonce) {
     global $connexion;
 

@@ -1,4 +1,5 @@
 <?php 
+// Modèle pour obtenir les activités
 function getActivite($connexion) {
 
     $sql = "SELECT * FROM activite";

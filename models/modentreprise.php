@@ -1,4 +1,6 @@
 <?php
+// Modèle pour gérer les entreprises
+// Fonction qui permet d'obtenir toutes les entreprises
 function get_entreprises($intitEntreprise) {
     global $connexion;
 
@@ -14,6 +16,7 @@ function get_entreprises($intitEntreprise) {
     return null;
 }
 
+// Fonction qui permet d'afficher les entrepries
 function afficher_entreprise() {
     global $connexion;
 
@@ -23,6 +26,7 @@ function afficher_entreprise() {
     return $entreprises;
 }
 
+// Fonction qui perrmet d'obtenir les détails d'une entreprise
 function detailEntreprise($id) {
     global $connexion;
 

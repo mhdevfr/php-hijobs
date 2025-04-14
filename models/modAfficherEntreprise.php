@@ -1,4 +1,5 @@
 <?php
+// Modèle pour afficher les entreprises
 function afficher_entreprise() {
     global $connexion;
 

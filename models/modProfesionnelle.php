@@ -1,5 +1,5 @@
 <?php
-
+// Permet d'obtenir les informations sur les professionnelles
 function get_profesionnelle($idProfessionelle)
 {
     global $connexion;

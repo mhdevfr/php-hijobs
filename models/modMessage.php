@@ -1,4 +1,6 @@
 <?php
+// Modèle pour gérer les messages
+// Fonction pour envoyer un message
 function envoyerMessage($connexion, $expediteur, $destinataire, $annonce, $contenu) {
     try {
         error_log("Tentative d'envoi de message - Données: " . json_encode([
@@ -82,6 +84,7 @@ function envoyerMessage($connexion, $expediteur, $destinataire, $annonce, $conte
 }
 
 
+// Récupère les messages reçus
 function getMessagesRecus($connexion, $userType, $userId) {
     try {
         if (empty($userId)) {
@@ -181,6 +184,7 @@ function getMessagesEnvoyes($connexion, $userType, $userId) {
     }
 }
 
+// Met les messages comme lus
 function marquerCommeLu($connexion, $idMessage) {
     try {
         $query = "UPDATE messages SET lu = TRUE WHERE idMessage = :idMessage";
@@ -195,6 +199,7 @@ function marquerCommeLu($connexion, $idMessage) {
     }
 }
 
+// Récupère l'ID de l'utilisateur selon le type
 function recupererIdUtilisateur($connexion, $userType) {
     try {
         switch ($userType) {
@@ -225,6 +230,7 @@ function recupererIdUtilisateur($connexion, $userType) {
     }
 }
 
+// Récupère les messages non lus
 function getNombreMessagesNonLus($connexion, $userType, $userId) {
     try {
         if (empty($userId)) {

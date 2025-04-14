@@ -1,5 +1,5 @@
 <?php
-
+// Permet de modifier le profil utilisateur d'un professionnel
 function modifProfilPro($p_idEntreprise, $p_nomEntreprise, $p_codePostal, $p_ville, $p_adresseEntreprise, $p_pays, $p_telephoneEntreprise, $p_siteWeb, $p_emailEntreprise, $p_numeroSiret, $p_secteurActivite)
 {
     global $connexion;

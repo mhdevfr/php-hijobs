@@ -1,4 +1,6 @@
 <?php
+// Modèle pour gérer les annonces de particulier
+// Fonction pour obtenir une annonce de particulier
 function getAnnoncesParti() {
     global $connexion;
 
@@ -9,6 +11,7 @@ function getAnnoncesParti() {
     return $annonces;
 };
 
+// Fonction qui permet d'obtenir les détail d'une annonce de particulier
 function detailAnnonceParti($numAnnonce)
 {
     global $connexion;
@@ -18,6 +21,7 @@ function detailAnnonceParti($numAnnonce)
     return $annonce;
 }
 
+// Fontion qui permet de supprimer une annonce de particulier
 function deleteAnnonceParti($numAnnonce)
 {
     global $connexion;

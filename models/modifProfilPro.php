@@ -1,9 +1,10 @@
 <?php
-
+// Modèle pour modifier le profil professionnel
 require_once('./models/modModifProfilPro.php');
 
 session_start();
 
+// Véririfcation des données envoyées par le formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Log des données reçues

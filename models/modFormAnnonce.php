@@ -1,4 +1,6 @@
 <?php
+// Modèle pour gérer les annonces de professionnel et de particulier
+// Fonction pour obtenir toutes les annonces de professionnel
 function getOffreur($connexion, $numAnnonce)
 {
     $proId = $_SESSION['idEntreprise'] ?? null;

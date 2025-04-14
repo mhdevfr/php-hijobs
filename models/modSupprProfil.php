@@ -1,5 +1,5 @@
 <?php
-
+// Permet de supprimer un profil utilisateur particulier, étudiant ou entreprise
 function supprProfil($userId, $userType) {
     global $connexion;
     

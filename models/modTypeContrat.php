@@ -1,5 +1,5 @@
 <?php 
-
+// Permet d'obtenir les types de contrat
 function get_type_de_contrat(){
     global $connexion;
     

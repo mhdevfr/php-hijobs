@@ -1,4 +1,5 @@
 <?php
+// Modèle pour afficher les types de contrats
 function afficher_contrats() {
     global $connexion;
     $etat = $connexion->prepare("SELECT * FROM types_contrats");

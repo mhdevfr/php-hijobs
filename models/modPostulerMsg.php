@@ -1,4 +1,5 @@
 <?php
+// Permet d'envoyer une candidature à une annonce
 function envoyerCandidature($annonceId, $etudiantId, $message)
 {
     global $connexion;

@@ -1,5 +1,5 @@
 <?php
-
+// Permet de modifier un profil utilisateur d'un étudiant
 function modifProfilEtu($p_idEtudiant, $p_nom, $p_prenom, $p_codePostal, $p_ville, $p_adresse, $p_pays, $p_telephone, $p_emailEtudiant, $p_niveauEtude, $p_nomFormation)
 {
     global $connexion;

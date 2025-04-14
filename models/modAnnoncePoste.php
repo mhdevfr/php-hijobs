@@ -1,5 +1,5 @@
 <?php
-
+// Modèle pour afficher les annonces posté par un particulier ou un professionnel
 function annoncePoste($connexion)
 {
     $proId = $_SESSION['idEntreprise'] ?? null;

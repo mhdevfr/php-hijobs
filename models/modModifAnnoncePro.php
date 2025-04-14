@@ -1,4 +1,5 @@
 <?php
+// Permet de modifier les annonces d'un professionnel
 function modifAnnoncePro() {
     global $connexion;
     if (!isset($_GET['numAnnoncePro'])) {

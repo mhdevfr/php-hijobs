@@ -1,5 +1,6 @@
 <?php
-
+// Modèle pour gérer les étudiants
+// Fonction qui permet d'obtenir toutes les informations sur les étudiants
 function get_etudiant($idEtudiant)
 {
     global $connexion;

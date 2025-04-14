@@ -1,5 +1,5 @@
 <?php
-
+// Permet de modifier un profil utilisateur d'un particulier
 function modifProfil($p_idParti, $p_nomParti, $p_prenomParti, $p_adresseParti, $p_codePostalParti, $p_ville, $p_pays, $p_telephone, $p_siteweb, $p_email, $p_typeMission)
 {
     global $connexion;
