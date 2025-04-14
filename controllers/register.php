@@ -1,25 +1,28 @@
 <?php
+// Controller qui permet de gérer l'inscription d'un utilisateur
 include('./config/config.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    error_reporting(E_ALL); 
+    error_reporting(E_ALL);
     ini_set("display_errors", 1);
-    
+
     // Vérification de la présence des champs requis
-    if (!isset($_POST['email']) || !isset($_POST['password']) || !isset($_POST['passconf']) || 
-        !isset($_POST['name']) || !isset($_POST['lastname']) || !isset($_POST['userType'])) {
+    if (
+        !isset($_POST['email']) || !isset($_POST['password']) || !isset($_POST['passconf']) ||
+        !isset($_POST['name']) || !isset($_POST['lastname']) || !isset($_POST['userType'])
+    ) {
         $_SESSION['error'] = "Tous les champs sont obligatoires";
         header('Location: index.php?section=enregistrer');
         exit();
     }
-    
+
     $email = $_POST['email'];
     $password = $_POST['password'];
     $passwordConf = $_POST['passconf'];
     $prenomUser = $_POST['name'];
     $nomUser = $_POST['lastname'];
-    $userType = $_POST['userType']; 
-    
-    if($password !== $passwordConf){
+    $userType = $_POST['userType'];
+
+    if ($password !== $passwordConf) {
         $_SESSION['error'] = "Les mots de passe ne sont pas identiques";
         header('Location: index.php?section=enregistrer');
         exit();
@@ -32,54 +35,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: index.php?section=enregistrer');
         exit();
     }
-    
+
     $hash = password_hash($password, PASSWORD_DEFAULT);
-    
+
+    // Vérifie le type de l'utilisateur à l'inscription
     try {
-        switch($userType) {
+        switch ($userType) {
+            // Inscrit en tant que professionnel
             case 'pro':
                 $requeteSql = "INSERT INTO professionelle (NomEntreprise, EmailEntreprise, password) VALUES (?, ?, ?)";
                 $etat = $connexion->prepare($requeteSql);
-                
-                if($etat->execute([$nomUser, $email, $hash])){
+
+                if ($etat->execute([$nomUser, $email, $hash])) {
                     $_SESSION['userType'] = 'pro';
                     $_SESSION['userId'] = $connexion->lastInsertId();
                     $_SESSION['userName'] = $nomUser;
-                    
+
                     header('Location: index.php');
                     exit();
                 }
                 break;
 
+            // Inscrit en tant qu'étudiant
             case 'etudiant':
                 $requeteSql = "INSERT INTO etudiant (nom, prenom, EmailEtudiant, password) VALUES (?, ?, ?, ?)";
                 $etat = $connexion->prepare($requeteSql);
-                
-                if($etat->execute([$nomUser, $prenomUser, $email, $hash])){
+
+                if ($etat->execute([$nomUser, $prenomUser, $email, $hash])) {
                     $_SESSION['userType'] = 'etudiant';
                     $_SESSION['userId'] = $connexion->lastInsertId();
                     $_SESSION['userName'] = $prenomUser;
-                    
+
                     header('Location: index.php');
                     exit();
                 }
                 break;
 
+            // Inscrit en tant que particulier
             case 'particulier':
                 $requeteSql = "INSERT INTO particulier (NomParti, PrenomParti, Email, password) VALUES (?, ?, ?, ?)";
                 $etat = $connexion->prepare($requeteSql);
-                
-                if($etat->execute([$nomUser, $prenomUser, $email, $hash])){
+
+                if ($etat->execute([$nomUser, $prenomUser, $email, $hash])) {
                     $_SESSION['userType'] = 'particulier';
                     $_SESSION['userId'] = $connexion->lastInsertId();
                     $_SESSION['userName'] = $prenomUser;
-                    
+
                     header('Location: index.php');
                     exit();
                 }
                 break;
         }
-    } catch(PDOException $e) {
+    } catch (PDOException $e) {
         $_SESSION['error'] = "Une erreur est survenue lors de l'inscription : " . $e->getMessage();
         header('Location: index.php?section=enregistrer');
         exit();
@@ -93,4 +100,3 @@ if (isset($_SESSION['error'])) {
 }
 
 include_once('views/user/vue_inscription.php');
-?>

@@ -1,11 +1,12 @@
-<?php 
+<?php
+// Controller qui permet de gérer l'inscription d'un étudiant
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
 
     $username = "adminJobs";
     $servername = "localhost";
     $passwordServ = "admin";
-    error_reporting(E_ALL); ini_set("display_errors", 1);
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
 
     $nomEtudiant = $_POST['nomEtudiant'];
     $prenomEtudiant = $_POST['prenomEtudiant'];
@@ -25,11 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $requeteSql = "INSERT INTO etudiant (nom, prenom, codePostal, Ville, Adresse, Pays, Telephone, EmailEtudiant, NiveauEtude, NomFormation, password) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
     $etat = $connexion->prepare($requeteSql);
 
-    if($password !== $passwordConf){
+    if ($password !== $passwordConf) {
         echo "Les mots de passes ne sont pas identiques veuillez recommencer";
     } else {
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        if($etat->execute([$nomEtudiant, $prenomEtudiant, $codePostalEtudiant, $villeEtudiant, $adresseEtudiant, $paysEtudiant, $telephoneEtudiant, $mailEtudiant, $niveauEtude, $nomFormation, $hash])){
+        if ($etat->execute([$nomEtudiant, $prenomEtudiant, $codePostalEtudiant, $villeEtudiant, $adresseEtudiant, $paysEtudiant, $telephoneEtudiant, $mailEtudiant, $niveauEtude, $nomFormation, $hash])) {
             echo "Vous êtes bien enregistré";
             header('Location: index.php');
         } else {
@@ -39,5 +40,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 include_once("views/user/vue_connexion.php");
-
-?>

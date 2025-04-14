@@ -1,11 +1,12 @@
-<?php 
+<?php
+// Controller qui permet de gérer l'inscription d'un particulier
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
 
     $username = "adminJobs";
     $servername = "localhost";
     $passwordServ = "admin";
-    error_reporting(E_ALL); ini_set("display_errors", 1);
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
 
     $nomParticulier = $_POST['nomParticulier'];
     $prenomParticulier = $_POST['prenomParticulier'];
@@ -24,11 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $requeteSql = "INSERT INTO particulier (NomParti, PrenomParti, AdresseParti, CodePostalParti, Ville, Pays, Telephone, SiteWeb, Email, TypeMission, password) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
     $etat = $connexion->prepare($requeteSql);
 
-    if($password !== $passwordConf){
+    if ($password !== $passwordConf) {
         echo "Les mots de passes ne sont pas identiques veuillez recommencer";
     } else {
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        if($etat->execute([$nomParticulier, $prenomParticulier, $adresseParticulier, $codePostalParticulier, $villeParticulier, $paysParticulier, $telephoneParticulier, $sitewebParticulier, $mailParticulier, $typeMission, $hash])){
+        if ($etat->execute([$nomParticulier, $prenomParticulier, $adresseParticulier, $codePostalParticulier, $villeParticulier, $paysParticulier, $telephoneParticulier, $sitewebParticulier, $mailParticulier, $typeMission, $hash])) {
             echo "Vous êtes bien enregistré";
             header('Location: index.php');
         } else {
@@ -39,5 +40,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 include_once("views/user/vue_connexion.php");
-
-?>

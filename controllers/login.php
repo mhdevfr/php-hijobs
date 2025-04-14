@@ -1,11 +1,15 @@
 <?php
+// Controller qui gère la connexion des utilisateurs
 include_once('./config/config.php');
 
+// Vérifier si l'utilisateur est déjà connecté
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'];
 
-    function checkUser($connexion, $table, $emailField, $email, $password) {
+    // Vérifier si les champs sont remplis
+    function checkUser($connexion, $table, $emailField, $email, $password)
+    {
         $requeteSql = "SELECT * FROM $table WHERE $emailField = ?";
         $etat = $connexion->prepare($requeteSql);
         $etat->execute([$email]);
@@ -17,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         return false;
     }
 
+    // Vérifier si l'utilisateur est étudiant, professionnel ou particulier
     $user = checkUser($connexion, 'etudiant', 'EmailEtudiant', $email, $password);
     $userType = 'etudiant';
 
@@ -30,11 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userType = 'particulier';
     }
 
+    // Si l'utilisateur est trouvé, on le connecte
     if ($user) {
         $_SESSION['validiteConnexion'] = true;
         $_SESSION['userType'] = $userType;
         $_SESSION['email'] = $email;
 
+        // Enregistrer les informations de l'utilisateur dans la session
         switch ($userType) {
             case 'etudiant':
                 $_SESSION['idEtudiant'] = $user['idEtudiant'];
@@ -57,17 +64,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: index.php?section=acc-parti');
                 break;
         }
-        
+
         exit();
     } else {
+        // Si l'utilisateur n'est pas trouvé, on affiche un message d'erreur
         $error = "Email ou mot de passe incorrect.";
     }
 }
-
+// Vérifier si l'utilisateur est connecté avant d'accéder à certaines sections
 if (isset($_GET['section']) && $_GET['section'] == 'acc-etu' && (!isset($_SESSION['validiteConnexion']) || $_SESSION['userType'] != 'etudiant')) {
     header('Location: index.php?section=connexion');
     exit();
 }
 
 include_once('views/user/vue_connexion.php');
-?>

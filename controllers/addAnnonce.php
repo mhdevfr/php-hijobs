@@ -5,6 +5,7 @@ $intitEntreprise = $_POST['intitEntreprise'];
 $localisation = $_POST['localisation'];
 $typeContrat = $_POST['typeContrat'];
 $descriptionAnnonce = $_POST['descriptionAnnonce'];
+
 include './models/modAddAnnonces.php';
 include './models/modentreprise.php';
 
@@ -24,4 +25,3 @@ if ($idEntreprise) {
     echo "Erreur lors de l'ajout de l'entreprise.";
     $connexion->rollBack();
 }
-?>

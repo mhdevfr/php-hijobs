@@ -1,16 +1,21 @@
 <?php
+// Controller qui gère l'affichage et l'envoi de messages
 require_once('./models/modMessage.php');
 
-function afficherMessages() {
+// Fonction pour afficher les messages reçus
+function afficherMessages()
+{
     global $connexion;
-    
+
     if (!isset($_SESSION['userType'])) {
         return [];
     }
-    
+
+    // Vérifie si l'id utilisateur n'est pas défini dans la session ou n'est pas vide
+    // Si l'utilisateur n'est pas connecté ou n'existe pas, on essaie de récupérer un ID temporaire
     if (!isset($_SESSION['userId']) || empty($_SESSION['userId'])) {
         error_log("ID utilisateur non défini pour l'affichage des messages");
-        
+
         $tempId = recupererIdUtilisateur($connexion, $_SESSION['userType']);
         if ($tempId) {
             $_SESSION['userId'] = $tempId;
@@ -20,20 +25,24 @@ function afficherMessages() {
             return [];
         }
     }
-    
     return getMessagesRecus($connexion, $_SESSION['userType'], $_SESSION['userId']);
 }
 
-function afficherMessagesEnvoyes() {
+// Fonction pour afficher les messages envoyés
+function afficherMessagesEnvoyes()
+{
     global $connexion;
-    
+
+    // Vérification de l'ID utilisateur
     if (!isset($_SESSION['userType'])) {
         return [];
     }
-    
+
+    // Vérifie si l'id utilisateur n'est pas défini dans la session ou n'est pas vide
+    // Si l'utilisateur n'est pas connecté ou n'existe pas, on essaie de récupérer un ID temporaire
     if (!isset($_SESSION['userId']) || empty($_SESSION['userId'])) {
         error_log("ID utilisateur non défini pour l'affichage des messages envoyés");
-        
+
         $tempId = recupererIdUtilisateur($connexion, $_SESSION['userType']);
         if ($tempId) {
             $_SESSION['userId'] = $tempId;
@@ -43,18 +52,19 @@ function afficherMessagesEnvoyes() {
             return [];
         }
     }
-    
     return getMessagesEnvoyes($connexion, $_SESSION['userType'], $_SESSION['userId']);
 }
 
-function marquerMessageLu() {
+// Fonction qui permet de marquer un message comme lu
+function marquerMessageLu()
+{
     global $connexion;
-    
+
     if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['idMessage'])) {
         header('Location: index.php?section=messages&error=parametres_manquants');
         exit;
     }
-    
+
     if (marquerCommeLu($connexion, $_POST['idMessage'])) {
         header('Location: index.php?section=messages&success=message_lu');
     } else {
@@ -63,20 +73,22 @@ function marquerMessageLu() {
     exit;
 }
 
-function repondreMessage() {
+// Fonction qui permet de réponde à un message
+function repondreMessage()
+{
     global $connexion;
-    
+
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         header('Location: index.php?section=messages');
         exit;
     }
-    
+
     if (!isset($_SESSION['userType']) || !isset($_SESSION['userId']) || empty($_SESSION['userId'])) {
         $_SESSION['error'] = "Vous devez être connecté pour envoyer un message";
         header('Location: index.php?section=connecter');
         exit;
     }
-    
+
     if (!isset($_POST['message']) || empty($_POST['message'])) {
         $_SESSION['error'] = "Le message ne peut pas être vide";
         header('Location: index.php?section=messages');
@@ -86,7 +98,7 @@ function repondreMessage() {
         'type' => $_SESSION['userType'],
         'id' => $_SESSION['userId']
     ];
-    
+
     $destinataire = [];
     if (isset($_POST['destinataire_type']) && isset($_POST['destinataire_id'])) {
         $destinataire = [
@@ -94,7 +106,7 @@ function repondreMessage() {
             'id' => $_POST['destinataire_id']
         ];
     }
-    
+
     $annonce = [];
     if (isset($_POST['numAnnonceParti']) && !empty($_POST['numAnnonceParti'])) {
         $annonce = [
@@ -107,7 +119,7 @@ function repondreMessage() {
             'id' => $_POST['numAnnoncePro']
         ];
     }
-    
+
     if (envoyerMessage($connexion, $expediteur, $destinataire, $annonce, $_POST['message'])) {
         header('Location: index.php?section=messages&success=message_envoye');
     } else {
@@ -116,9 +128,11 @@ function repondreMessage() {
     exit;
 }
 
-function envoyerMessageAnnonce() {
+// Fonction qui permet d'envoyer des méssages aux auteur de l'annonces
+function envoyerMessageAnnonce()
+{
     global $connexion;
-    
+
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         header('Location: index.php?section=annonces');
         exit;
@@ -128,38 +142,38 @@ function envoyerMessageAnnonce() {
         header('Location: index.php?section=connecter');
         exit;
     }
-    
+
     if ($_SESSION['userType'] !== 'etudiant') {
         $_SESSION['error'] = "Seuls les étudiants peuvent postuler aux annonces";
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
     }
-    
+
     if (!isset($_POST['message']) || empty($_POST['message'])) {
         $_SESSION['error'] = "Le message ne peut pas être vide";
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
     }
-    
+
     $expediteur = [
         'type' => 'etudiant',
         'id' => $_SESSION['userId']
     ];
-    
+
     $destinataire = [];
     $annonce = [];
-    
+
     if (isset($_POST['numAnnonceParti']) && !empty($_POST['numAnnonceParti'])) {
         $annonce = [
             'type' => 'particulier',
             'id' => $_POST['numAnnonceParti']
         ];
-        
+
         try {
             $stmt = $connexion->prepare("SELECT idParti FROM annonceparticulier WHERE numAnnonceParti = :id");
             $stmt->execute([':id' => $_POST['numAnnonceParti']]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if ($result) {
                 $destinataire = [
                     'type' => 'particulier',
@@ -179,12 +193,12 @@ function envoyerMessageAnnonce() {
             'type' => 'pro',
             'id' => $_POST['numAnnoncePro']
         ];
-        
+
         try {
             $stmt = $connexion->prepare("SELECT idEntreprise FROM annoncepro WHERE numAnnoncePro = :id");
             $stmt->execute([':id' => $_POST['numAnnoncePro']]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if ($result) {
                 $destinataire = [
                     'type' => 'pro',
@@ -204,7 +218,7 @@ function envoyerMessageAnnonce() {
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
     }
-    
+
     if (envoyerMessage($connexion, $expediteur, $destinataire, $annonce, $_POST['message'])) {
         $_SESSION['success'] = "Votre candidature a été envoyée avec succès";
         header('Location: index.php?section=messages');

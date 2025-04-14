@@ -1,12 +1,14 @@
 <?php
+// Controller qui permet de gérer la suppression d'une annonce
 include_once('models/modSupprAnnonce.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
     $numAnnonce = isset($_POST['numAnnonce']) ? intval($_POST['numAnnonce']) : 0;
-    
+
+    // Vérifie si l'annonce existe
     if ($numAnnonce > 0) {
         $result = deleteAnnonce($connexion, $numAnnonce);
-        
+
         if ($result) {
             header('Location: index.php?section=annoncePoste&success=deleted');
         } else {

@@ -1,5 +1,5 @@
 <?php
-
+// Controller qui gère l'ajout d'une annonce d'une entreprise
 $titreAnnonce = $_POST['titreAnnonce'];
 $intitEntreprise = $_POST['intitEntreprise'];
 $localisation = $_POST['localisation'];
@@ -9,9 +9,10 @@ $descriptionAnnonce = $_POST['descriptionAnnonce'];
 include './models/modAddAnnoncePro.php';
 include './models/modentreprise.php';
 
-
+// Récupère les données de l'entreprise connecté
 $idEntreprise = get_entreprises($intitEntreprise);
 
+// Vérifie et ajoute une annonce d'une entreprise
 $connexion->beginTransaction();
 
 if ($idEntreprise) {
@@ -26,4 +27,3 @@ if ($idEntreprise) {
     echo "Erreur : Aucune entreprise trouvé avec ce nom et prénom.";
     $connexion->rollBack();
 }
-?>
