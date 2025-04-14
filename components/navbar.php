@@ -1,13 +1,18 @@
 <?php
+// Initialisation du compteur de messages non lus
 $unreadCount = 0;
+
+// Vérifie si l'utilisateur est connecté
 if (isset($_SESSION['userType']) && isset($_SESSION['userId'])) {
     try {
         $userType = $_SESSION['userType'];
         $userId = $_SESSION['userId'];
-        
+
+        // Construction de la requête SQL pour compter les messages non lus
         $query = "SELECT COUNT(*) FROM messages WHERE lu = FALSE AND ";
-        
-        switch($userType) {
+
+        // Ajoute une condition en fonction du type d'utilisateur
+        switch ($userType) {
             case 'particulier':
                 $query .= "idParti = :id";
                 break;
@@ -18,45 +23,53 @@ if (isset($_SESSION['userType']) && isset($_SESSION['userId'])) {
                 $query .= "idEtudiant = :id";
                 break;
         }
-        
+
+        // Prépare et exécute la requête
         $stmt = $connexion->prepare($query);
         $stmt->execute([':id' => $userId]);
-        $unreadCount = $stmt->fetchColumn();
+        $unreadCount = $stmt->fetchColumn(); // Récupère le nombre de messages non lus
     } catch (PDOException $e) {
     }
 }
 ?>
 
+<!-- Barre de navigation -->
 <nav class="bg-white  w-4/5 z-50 top-0 border mt-12 rounded-lg border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
+            <!-- Logo -->
             <div class="flex-shrink-0">
                 <a href="index.php" class="flex items-center">
                     <span class="text-2xl font-bold text-black">Hi<span class="text-orange-400">Jobs</span></span>
                 </a>
             </div>
+
+            <!-- Liens de navigation (version desktop) -->
             <div class="hidden md:flex md:items-center md:justify-end md:flex-1">
                 <div class="flex space-x-8">
+                    <!-- Liens pour les utilisateurs non connectés -->
                     <?php if (!isset($_SESSION['validiteConnexion']) || !$_SESSION['validiteConnexion']): ?>
                         <a href="index.php?section=index" class="text-gray-600 hover:text-black transition-colors px-3 py-2">Accueil</a>
                         <a href="index.php?section=connecter" class="text-gray-600 hover:text-black transition-colors px-3 py-2">Annonces</a>
                         <a href="index.php?section=connecter" class="text-gray-600 hover:text-black transition-colors px-3 py-2">Entreprises</a>
                     <?php endif; ?>
 
+                    <!-- Liens pour les utilisateurs connectés -->
                     <?php if (isset($_SESSION['validiteConnexion']) && $_SESSION['validiteConnexion']): ?>
                         <a href="index.php?section=annonce" class="text-gray-600 hover:text-black transition-colors px-3 py-2">Annonces</a>
                         <a href="index.php?section=entreprise" class="text-gray-600 hover:text-black transition-colors px-3 py-2">Entreprises</a>
                         <?php if (isset($_SESSION['userType'])): ?>
                             <?php
+                            // Détermine le lien du tableau de bord en fonction du type d'utilisateur
                             $dashboardLinks = [
                                 'particulier' => 'acc-parti',
                                 'professionnel' => 'acc-off',
                                 'etudiant' => 'acc-etu'
                             ];
-                            
+
                             if (isset($dashboardLinks[$_SESSION['userType']])): ?>
-                                <a href="index.php?section=<?php echo $dashboardLinks[$_SESSION['userType']]; ?>" 
-                                   class="text-gray-600 hover:text-black transition-colors px-3 py-2">
+                                <a href="index.php?section=<?php echo $dashboardLinks[$_SESSION['userType']]; ?>"
+                                    class="text-gray-600 hover:text-black transition-colors px-3 py-2">
                                     Compte
                                 </a>
                             <?php endif; ?>
@@ -65,7 +78,9 @@ if (isset($_SESSION['userType']) && isset($_SESSION['userId'])) {
                 </div>
             </div>
 
+            <!-- Actions utilisateur -->
             <div class="flex items-center space-x-4">
+                <!-- Icône des messages avec compteur -->
                 <?php if (isset($_SESSION['validiteConnexion']) && $_SESSION['validiteConnexion']): ?>
                     <a href="index.php?section=messages" class="relative text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium inline-flex items-center">
                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -78,18 +93,20 @@ if (isset($_SESSION['userType']) && isset($_SESSION['userId'])) {
                         <?php endif; ?>
                     </a>
 
-                   
-                    <a href="index.php?section=logout" 
-                       class="inline-flex items-center ml-2 px-2 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
+                    <!-- Bouton de déconnexion -->
+                    <a href="index.php?section=logout"
+                        class="inline-flex items-center ml-2 px-2 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
                         Déconnexion
                     </a>
                 <?php else: ?>
-                    <a href="index.php?section=connecter" 
-                       class="inline-flex items-center px-4 ml-2 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
+                    <!-- Bouton de connexion -->
+                    <a href="index.php?section=connecter"
+                        class="inline-flex items-center px-4 ml-2 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
                         Connexion
                     </a>
                 <?php endif; ?>
 
+                <!-- Bouton pour le menu mobile -->
                 <div class="md:hidden">
                     <button type="button" onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500">
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -101,25 +118,28 @@ if (isset($_SESSION['userType']) && isset($_SESSION['userId'])) {
         </div>
     </div>
 
+    <!-- Menu mobile -->
     <div id="mobileMenu" class="hidden md:hidden border-t border-gray-200">
         <div class="pt-2 pb-3 space-y-1">
+            <!-- Liens pour les utilisateurs non connectés -->
             <?php if (!isset($_SESSION['validiteConnexion']) || !$_SESSION['validiteConnexion']): ?>
                 <a href="index.php?section=index" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-black hover:bg-gray-50 transition-colors">Accueil</a>
                 <a href="index.php?section=connecter" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-black hover:bg-gray-50 transition-colors">Annonces</a>
                 <a href="index.php?section=connecter" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-black hover:bg-gray-50 transition-colors">Entreprises</a>
             <?php endif; ?>
 
+            <!-- Liens pour les utilisateurs connectés -->
             <?php if (isset($_SESSION['validiteConnexion']) && $_SESSION['validiteConnexion']): ?>
                 <a href="index.php?section=annonce" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-black hover:bg-gray-50 transition-colors">Annonces</a>
                 <a href="index.php?section=entreprise" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-black hover:bg-gray-50 transition-colors">Entreprises</a>
-                
+
                 <?php if (isset($_SESSION['userType']) && isset($dashboardLinks[$_SESSION['userType']])): ?>
-                    <a href="index.php?section=<?php echo $dashboardLinks[$_SESSION['userType']]; ?>" 
-                       class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-black hover:bg-gray-50 transition-colors">
+                    <a href="index.php?section=<?php echo $dashboardLinks[$_SESSION['userType']]; ?>"
+                        class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-black hover:bg-gray-50 transition-colors">
                         Compte
                     </a>
                 <?php endif; ?>
-                
+
                 <a href="index.php?section=messages" class="flex items-center px-4 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
                     <svg class="h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -136,14 +156,14 @@ if (isset($_SESSION['userType']) && isset($_SESSION['userId'])) {
                     <span class="block text-sm font-medium text-gray-900">
                         <?php echo htmlspecialchars($_SESSION['prenomUser']); ?>
                     </span>
-                    <a href="index.php?section=logout" 
-                       class="block w-full text-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 transition-colors">
+                    <a href="index.php?section=logout"
+                        class="block w-full text-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 transition-colors">
                         Déconnexion
                     </a>
                 </div>
             <?php else: ?>
-                <a href="index.php?section=connecter" 
-                   class="block w-full text-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 transition-colors">
+                <a href="index.php?section=connecter"
+                    class="block w-full text-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 transition-colors">
                     Connexion
                 </a>
             <?php endif; ?>
@@ -151,9 +171,10 @@ if (isset($_SESSION['userType']) && isset($_SESSION['userId'])) {
     </div>
 </nav>
 
+<!-- Script pour le menu mobile -->
 <script>
-function toggleMobileMenu() {
-    const mobileMenu = document.getElementById('mobileMenu');
-    mobileMenu.classList.toggle('hidden');
-}
+    function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenu.classList.toggle('hidden');
+    }
 </script>
