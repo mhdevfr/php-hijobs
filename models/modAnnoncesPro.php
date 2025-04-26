@@ -15,7 +15,13 @@ function getAnnoncesPro() {
 function detailAnnoncePro($numAnnonce)
 {
     global $connexion;
-    $req = $connexion->prepare("SELECT * FROM annoncepro where numAnnoncePro=?");
+    
+    $req = $connexion->prepare("
+        SELECT a.*, p.NomEntreprise 
+        FROM annoncepro a
+        JOIN professionelle p ON a.idEntreprise = p.idEntreprise
+        WHERE a.numAnnoncePro = ?");
+        
 	$req->execute([$numAnnonce]);
     $annonce = $req->fetch(PDO::FETCH_ASSOC);
     return $annonce;

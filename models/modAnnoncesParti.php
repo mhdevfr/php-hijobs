@@ -15,7 +15,13 @@ function getAnnoncesParti() {
 function detailAnnonceParti($numAnnonce)
 {
     global $connexion;
-    $req = $connexion->prepare("SELECT * FROM annonceparticulier where numAnnonceParti= ?");
+    
+    $req = $connexion->prepare("
+        SELECT a.*, p.NomParti, p.PrenomParti 
+        FROM annonceparticulier a
+        JOIN particulier p ON a.idParti = p.idParti
+        WHERE a.numAnnonceParti = ?");
+        
 	$req->execute([$numAnnonce]);
     $annonce = $req->fetch(PDO::FETCH_ASSOC);
     return $annonce;
