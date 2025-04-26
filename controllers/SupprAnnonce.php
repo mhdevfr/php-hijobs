@@ -7,13 +7,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
 
     // Vérifie si l'annonce existe
     if ($numAnnonce > 0) {
-        $result = deleteAnnonce($connexion, $numAnnonce);
-
-        if ($result) {
-            header('Location: index.php?section=annoncePoste&success=deleted');
-        } else {
-            header('Location: index.php?section=annoncePoste&error=delete_failed');
-        }
+        $redirectBase = isset($_SESSION['idEntreprise']) ? 'index.php?section=annoncePoste' : 'index.php?section=annoncePoste';
+        
+        echo "<script>
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?')) {
+                " . ($result = deleteAnnonce($connexion, $numAnnonce) ? "true" : "false") . ";
+                
+                if (" . ($result ? "true" : "false") . ") {
+                    window.location.href = '$redirectBase&success=deleted';
+                } else {
+                    window.location.href = '$redirectBase&error=delete_failed';
+                }
+            } else {
+                window.location.href = '$redirectBase';
+            }
+        </script>";
+        exit();
     } else {
         header('Location: index.php?section=annoncePoste&error=invalid_annonce');
     }
