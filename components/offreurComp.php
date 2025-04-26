@@ -92,10 +92,10 @@
 </div>
 
 <!-- Section pour les annonces publiées -->
-<div class="flex lg:w-full w-full bg-gray-100 h-full text-start items-center justify-center flex-col rounded-2xl p-6">
+<div class="flex lg:w-full w-full bg-gray-100 h-full text-start items-center justify-between rounded-2xl p-6">
 
     <h1 class="text-4xl text-bold police-1 mb-6 ">Annonces publiées</h1>
-    <a href="index.php?section=annoncePoste" class="italic px-2 py-1 bg-orange-400 flex items-center justify-center lg:w-auto w-64 rounded-lg">Voir toute les annonces posté</a>
+    <a href="index.php?section=annoncePoste" class=" px-3 py-2 bg-gray-950 text-white hover:bg-gray-800 transition-colors duration-300 flex items-center justify-center lg:w-auto w-64 rounded-md">Voir vos annonces</a>
 
 </div>
 

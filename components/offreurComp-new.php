@@ -232,4 +232,6 @@
 <div class="announcements-section modern-card">
     <h1 class="modern-heading">Annonces publiu00e9es</h1>
     <a href="index.php?section=annoncePoste" class="modern-button" style="max-width: 300px;">Voir toutes les annonces postu00e9es</a>
+    <a href="index.php?section=annoncePoste" class="italic px-2 py-1 bg-orange-400 flex items-center justify-center lg:w-auto w-64 rounded-lg">Voir toute les annonces posté</a>
+
 </div>
