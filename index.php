@@ -73,15 +73,18 @@ if ($section == 'index') {
         case 'supprimerAnnonce':
             include_once('controllers/SupprAnnonce.php');
             break;
-            case 'formSupprProfil':
-                include_once('controllers/formSupprProfil.php');
-                break;
-            case 'formSupprProfilPro':
-                include_once('controllers/formSupprProfil.php');
-                break;
-            case 'form':
-                include_once('controllers/formSupprProfil.php');
-                break;
+        case 'formSupprProfil':
+            include_once('controllers/formSupprProfil.php');
+            break;
+        case 'formSupprProfilPro':
+            include_once('controllers/formSupprProfil.php');
+            break;
+        case 'formSupprProfilEtu':
+            include_once('controllers/formSupprProfilEtu.php');
+            break;
+        case 'form':
+            include_once('controllers/formSupprProfil.php');
+            break;
         case 'postNotif':
                 include_once('controllers/postNotif.php');
                 break;
