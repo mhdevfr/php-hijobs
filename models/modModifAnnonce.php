@@ -30,7 +30,7 @@ function modifAnnonce($connexion, $titreAnnonce, $villeAnnonce, $description, $t
             titreAnnonce = :titreAnnonceParti,
             villeAnnonceParti = :villeAnnonceParti,
             descriptionParti = :descriptionParti
-            WHERE idParti = :idParti";
+            WHERE numAnnonceParti = :numAnnonceParti";
             $stmt = $connexion->prepare($sql);
             $stmt->bindParam(':titreAnnonceParti', $titreAnnonce, PDO::PARAM_STR);
             $stmt->bindParam(':villeAnnonceParti', $villeAnnonce, PDO::PARAM_STR);
@@ -40,5 +40,7 @@ function modifAnnonce($connexion, $titreAnnonce, $villeAnnonce, $description, $t
         return $stmt->execute();
         
     } catch (PDOException $e) {
+        error_log("Erreur dans modifAnnonce: " . $e->getMessage());
+        return false;
     }
 }

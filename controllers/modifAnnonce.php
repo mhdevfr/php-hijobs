@@ -11,6 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         return [];
     }
 
+    // Initialiser les variables
+    $numAnnoncePro = null;
+    $numAnnonceParti = null;
+    $villeAnnonce = '';
+    $description = '';
+    $typeContrat = '';
+    $titreAnnonce = '';
+
     // Vérifie sur l'utilisateur est un professionnel ou un particulier
     try {
         if ($proId) {
@@ -25,22 +33,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $titreAnnonce = $_POST['titreAnnonceParti'];
             $nomParticulier = $_POST['nomParti'];
             $prenomParticulier = $_POST['prenomParti'];
-            $ville = $_POST['villeAnnonceParti'];
-            $descriptionAnnonce = $_POST['descriptionAnnonceParti'];
+            $villeAnnonce = $_POST['villeAnnonceParti'];
+            $description = $_POST['descriptionAnnonceParti'];
+            $typeContrat = ''; // Les particuliers n'ont pas de type de contrat, mais on initialise quand même
         }
     } catch (Exception $e) {
         $error = $e->getMessage();
+        error_log("Erreur dans modifAnnonce controller: " . $e->getMessage());
     }
 
+    // Débogage pour voir ce qui est envoyé à la fonction
+    error_log("Paramètres pour modifAnnonce: ");
+    error_log("titreAnnonce: " . $titreAnnonce);
+    error_log("villeAnnonce: " . $villeAnnonce);
+    error_log("description: " . $description);
+    error_log("numAnnoncePro: " . ($numAnnoncePro ?? 'null'));
+    error_log("numAnnonceParti: " . ($numAnnonceParti ?? 'null'));
 
     $result = modifAnnonce($connexion, $titreAnnonce, $villeAnnonce, $description, $typeContrat, $numAnnoncePro, $numAnnonceParti);
 
     // Vérifie si la requête a été exécutée avec succès
     // Si oui, redirige vers la page d'accueil
     if ($result) {
-        header('Location: index.php');
+        if ($proId) {
+            header('Location: index.php?section=annoncePoste');
+        } else {
+            header('Location: index.php?section=annonce');
+        }
         exit;
     } else {
         $error = "Une erreur est survenue lors de la mise à jour de votre annonce.";
+        error_log("Échec de la mise à jour de l'annonce");
     }
 }

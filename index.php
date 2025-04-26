@@ -125,8 +125,8 @@ if ($section == 'index') {
             include_once('controllers/modifAnnonceParti.php');
             break;
         case 'ModifAnnonce':
-                include_once('controllers/modifAnnonce.php');
-                break;
+            include_once('controllers/modifAnnonce.php');
+            break;
         case 'FormPostuler':
             include_once('controllers/formPostuler.php');
             break;
