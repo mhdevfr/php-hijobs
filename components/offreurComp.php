@@ -75,7 +75,6 @@
                     <p placeholder="Secteur d'activité" class="police-2">Secteur d'activité : <?php echo $pro['SecteurActivite']; ?></p>
 
                     <!-- Boutons pour modifier ou supprimer le profil -->
-                    <?php echo $pro['Taille']; ?></>
                     <div class="w-full mt-6 flex justify-end space-x-4  items-center">
                         <button><a href="index.php?section=formModifProfilPro"
                                 class="shadcn-button bg-gray-900 p-2 rounded-lg px-3 text-white my-6">Modifier votre
