@@ -4,7 +4,7 @@
 function getAnnoncesPro() {
     global $connexion;
 
-    $requeteSql = "SELECT * FROM annoncepro";
+    $requeteSql = "SELECT * FROM annoncepro ORDER BY created_at DESC";
     $etat = $connexion->prepare($requeteSql);
     $etat -> execute();
     $annonces = $etat->fetchAll(PDO::FETCH_ASSOC);

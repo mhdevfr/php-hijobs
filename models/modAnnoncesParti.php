@@ -4,7 +4,7 @@
 function getAnnoncesParti() {
     global $connexion;
 
-    $requeteSql = "SELECT * FROM annonceparticulier";
+    $requeteSql = "SELECT * FROM annonceparticulier ORDER BY created_at DESC";
     $etat = $connexion->prepare($requeteSql);
     $etat -> execute();
     $annonces = $etat->fetchAll(PDO::FETCH_ASSOC);
