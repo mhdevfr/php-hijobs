@@ -4,7 +4,7 @@ function get_profesionnelle($idProfessionelle)
 {
     global $connexion;
 
-    $req = $connexion->prepare(query: "SELECT * FROM professionelle WHERE idEntreprise = ?");
+    $req = $connexion->prepare("SELECT * FROM professionelle WHERE idEntreprise = ?");
     $req->execute([$idProfessionelle]);
     $profesionelle = $req->fetchAll(PDO::FETCH_ASSOC);
 
